@@ -3,7 +3,7 @@ package com.bitbybit.game;
 import com.bitbybit.input.*;
 import com.bitbybit.input.CSVQuestionLoaderFactory;
 import com.bitbybit.input.JSONQuestionLoaderFactory;
-//import com.bitbybit.input.XMLQuestionLoaderFactory; // if you have it
+import com.bitbybit.input.XMLQuestionLoaderFactory;
 
 public class InteractiveGameRunner {
 
@@ -49,8 +49,8 @@ public class InteractiveGameRunner {
                     return new CSVQuestionLoaderFactory().createQuestionLoader(filepath);
                 } else if (lower.endsWith(".json")) {
                     return new JSONQuestionLoaderFactory().createQuestionLoader(filepath);
-                    // } else if (lower.endsWith(".xml")) {
-                    // return new XMLQuestionLoaderFactory().createQuestionLoader(filepath);
+                } else if (lower.endsWith(".xml")) {
+                    return new XMLQuestionLoaderFactory().createQuestionLoader(filepath);
                 } else {
                     throw new IllegalArgumentException("Unsupported file type: " + filepath);
                 }

@@ -8,10 +8,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Scanner;
 
-/**
- * A simple runner to test gameplay flow:
- * IntroState → PlayingState → FinishedState
- */
 public class GameTestRunner {
     public static void main(String[] args) {
 
