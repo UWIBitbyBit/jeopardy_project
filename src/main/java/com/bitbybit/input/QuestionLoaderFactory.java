@@ -1,5 +1,5 @@
 package com.bitbybit.input;
 
-public interface QuestionLoaderFactory {
-    QuestionLoader createQuestionLoader(String fileType);
+public abstract class QuestionLoaderFactory {
+    public abstract QuestionLoader createQuestionLoader(String filepath);
 }
