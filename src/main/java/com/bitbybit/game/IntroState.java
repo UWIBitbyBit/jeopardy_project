@@ -3,8 +3,6 @@ package com.bitbybit.game;
 import com.bitbybit.input.*;
 import com.bitbybit.model.Question;
 
-import java.util.Scanner;
-
 public class IntroState implements GameState {
 
     private final QuestionLoaderFactory factory;
@@ -24,26 +22,30 @@ public class IntroState implements GameState {
 
     @Override
     public void executeState(GameContext context) {
-        Scanner scanner = new Scanner(System.in);
 
+        var scanner = context.getScanner();
+
+        // Read the filename
         String filepath = scanner.nextLine().trim();
 
         try {
-            // Use the factory provided at construction time
+            // Create appropriate loader from factory
             QuestionLoader loader = factory.createQuestionLoader(filepath);
+
+            // Load questions
             Question[] questions = loader.loadQuestions(filepath);
 
-            if (questions.length == 0) {
+            if (questions == null || questions.length == 0) {
                 System.out.println("❌ No questions found. Try another file.");
                 return;
             }
 
             System.out.println("✓ Loaded " + questions.length + " questions!");
 
-            // store into context
+            // Store questions into context
             context.setQuestions(questions);
 
-            // move to next state (pass factory to next state if needed)
+            // Move to PlayingState
             changeState(context);
 
         } catch (IllegalArgumentException e) {

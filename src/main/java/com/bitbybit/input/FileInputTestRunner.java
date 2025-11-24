@@ -48,7 +48,7 @@ public class FileInputTestRunner {
             // or temporarily comment out the ones that don’t exist.
             System.out.println(
                     q.getId() + " | " +
-                            q.getCatergory() + " | " +
+                            q.getCategory() + " | " +
                             q.getValue() + " | " +
                             q.getQuestion() // or whatever your getter is called
             );

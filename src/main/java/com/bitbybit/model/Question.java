@@ -1,21 +1,30 @@
 package com.bitbybit.model;
 
 public class Question {
-    private String id;
-    private String catergory;
-    private int value;
-    private String question;
-    private String optionA;
-    private String optionB;
-    private String optionC;
-    private String optionD;
-    private String correctAnswer;
+    private final String id;
+    private final String category;
+    private final int value;
+    private final String question;
+    private final String optionA;
+    private final String optionB;
+    private final String optionC;
+    private final String optionD;
+    private final String correctAnswer;
     private boolean isAnswered;
 
-    public Question(String id, String catergory, int value, String question, String optionA, String optionB,
-            String optionC, String optionD, String correctAnswer) {
+    // Note: parameter 'category' is correctly spelled now
+    public Question(
+            String id,
+            String category,
+            int value,
+            String question,
+            String optionA,
+            String optionB,
+            String optionC,
+            String optionD,
+            String correctAnswer) {
         this.id = id;
-        this.catergory = catergory;
+        this.category = category;
         this.value = value;
         this.question = question;
         this.optionA = optionA;
@@ -30,8 +39,14 @@ public class Question {
         return id;
     }
 
+    // New, correct name
+    public String getCategory() {
+        return category;
+    }
+
+    // Optional: keep legacy spelling if other code/tests still call it
     public String getCatergory() {
-        return catergory;
+        return category;
     }
 
     public int getValue() {
