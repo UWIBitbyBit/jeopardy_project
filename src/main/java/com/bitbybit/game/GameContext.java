@@ -2,8 +2,9 @@ package com.bitbybit.game;
 
 import java.util.Scanner;
 import com.bitbybit.model.Question;
+import com.bitbybit.logging.ObservableGame;
 
-public class GameContext {
+public class GameContext extends ObservableGame {
     private final Scanner scanner;
     private GameState state;
     private Question[] questions;

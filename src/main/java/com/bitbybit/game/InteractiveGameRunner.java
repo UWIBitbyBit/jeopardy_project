@@ -1,9 +1,7 @@
 package com.bitbybit.game;
 
 import com.bitbybit.input.*;
-import com.bitbybit.input.CSVQuestionLoaderFactory;
-import com.bitbybit.input.JSONQuestionLoaderFactory;
-import com.bitbybit.input.XMLQuestionLoaderFactory;
+import com.bitbybit.logging.CSVLoggingObserver;
 
 public class InteractiveGameRunner {
 
@@ -16,8 +14,11 @@ public class InteractiveGameRunner {
 
         // 3. GameContext owns the shared Scanner(System.in)
         GameContext context = new GameContext(intro);
+        String baseDir = System.getProperty("user.dir");
+        context.addObserver(new CSVLoggingObserver(baseDir));
 
         System.out.println("Starting interactive Jeopardy game...\n");
+        context.notifyObservers(new com.bitbybit.logging.GameStartedEvent());
 
         // 4. Run the state machine until we hit FinishedState
         while (!(context.getState() instanceof FinishedState)) {

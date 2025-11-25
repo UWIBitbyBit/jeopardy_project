@@ -45,6 +45,9 @@ public class IntroState implements GameState {
             // Store questions into context
             context.setQuestions(questions);
 
+            // Notify observer: file loaded
+            context.notifyObservers(new com.bitbybit.logging.LoadFileEvent());
+
             // Move to PlayingState
             changeState(context);
 

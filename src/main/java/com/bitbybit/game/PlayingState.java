@@ -3,6 +3,9 @@ package com.bitbybit.game;
 import com.bitbybit.model.Player;
 import com.bitbybit.model.Question;
 import com.bitbybit.model.QuestionBoard;
+import com.bitbybit.logging.PlayerJoinedEvent;
+import com.bitbybit.logging.GameFinishedEvent;
+import com.bitbybit.logging.QuestionAnsweredEvent;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -70,12 +73,16 @@ public class PlayingState implements GameState {
             changeState(ctx);
             return;
         }
+        // Log category selection
+        context.notifyObservers(new com.bitbybit.logging.SelectCategoryEvent(category, currentPlayer.getName()));
 
         int value = promptForValue(category);
         if (value == -1) {
             System.out.println("Invalid value. Try again.");
             return;
         }
+        // Log question selection
+        context.notifyObservers(new com.bitbybit.logging.SelectQuestionEvent(category, value, currentPlayer.getName()));
 
         // Get the question (board handles "already answered")
         Question question = board.getQuestion(category, value);
@@ -96,10 +103,10 @@ public class PlayingState implements GameState {
         // Evaluate answer
         boolean correct = evaluateAnswer(question, playerAnswer);
         int pointsEarned = correct ? value : 0;
-
         // Update score and mark question as answered
         currentPlayer.addScore(pointsEarned);
         board.markAnswered(question);
+        context.notifyObservers(new com.bitbybit.logging.QuestionAnsweredEvent(currentPlayer, question, correct, playerAnswer));
 
         // Display result
         if (correct) {
@@ -124,6 +131,7 @@ public class PlayingState implements GameState {
     public void changeState(GameContext ctx) {
         if (!gameActive || (board != null && board.allQuestionsAnswered())) {
             ctx.setState(new FinishedState());
+            context.notifyObservers(new GameFinishedEvent());
         }
     }
 
@@ -144,6 +152,8 @@ public class PlayingState implements GameState {
                 System.out.println("Please enter a valid number.");
             }
         }
+        // Log player count selection
+        context.notifyObservers(new com.bitbybit.logging.SelectPlayerCountEvent(numPlayers));
 
         for (int i = 0; i < numPlayers; i++) {
             System.out.print("Enter name for Player " + (i + 1) + ": ");
@@ -152,6 +162,7 @@ public class PlayingState implements GameState {
                 name = "Player " + (i + 1);
             }
             players.add(new Player(name));
+            context.notifyObservers(new PlayerJoinedEvent(players.get(i)));
         }
     }
 
