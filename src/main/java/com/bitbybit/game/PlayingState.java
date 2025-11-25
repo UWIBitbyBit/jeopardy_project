@@ -6,6 +6,7 @@ import com.bitbybit.model.QuestionBoard;
 import com.bitbybit.logging.PlayerJoinedEvent;
 import com.bitbybit.logging.GameFinishedEvent;
 import com.bitbybit.logging.QuestionAnsweredEvent;
+import com.bitbybit.logging.SelectPlayerCountEvent;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -102,11 +103,19 @@ public class PlayingState implements GameState {
 
         // Evaluate answer
         boolean correct = evaluateAnswer(question, playerAnswer);
-        int pointsEarned = correct ? value : 0;
+        int pointsEarned;
+
+        if (correct) {
+            pointsEarned = value;
+        } else {
+            pointsEarned = -value; // Deduct points for incorrect answers
+        }
+        
+        int runningScore = currentPlayer.getScore() + pointsEarned; // Calculate running score before adding
         // Update score and mark question as answered
         currentPlayer.addScore(pointsEarned);
         board.markAnswered(question);
-        context.notifyObservers(new com.bitbybit.logging.QuestionAnsweredEvent(currentPlayer, question, correct, playerAnswer));
+        context.notifyObservers(new QuestionAnsweredEvent(currentPlayer, question, correct, playerAnswer, pointsEarned, runningScore));
 
         // Display result
         if (correct) {
@@ -153,7 +162,7 @@ public class PlayingState implements GameState {
             }
         }
         // Log player count selection
-        context.notifyObservers(new com.bitbybit.logging.SelectPlayerCountEvent(numPlayers));
+        context.notifyObservers(new SelectPlayerCountEvent(numPlayers));
 
         for (int i = 0; i < numPlayers; i++) {
             System.out.print("Enter name for Player " + (i + 1) + ": ");

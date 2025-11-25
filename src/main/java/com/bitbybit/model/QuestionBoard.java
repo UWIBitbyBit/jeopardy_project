@@ -1,7 +1,4 @@
 package com.bitbybit.model;
-
-import com.bitbybit.model.Question;
-
 import java.util.*;
 
 public class QuestionBoard {

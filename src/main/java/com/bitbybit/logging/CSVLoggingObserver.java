@@ -1,10 +1,7 @@
 package com.bitbybit.logging;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
-import com.bitbybit.model.Player;
 
 public class CSVLoggingObserver implements GameObserver {
     private final String logsDir;
