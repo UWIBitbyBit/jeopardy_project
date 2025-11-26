@@ -2,13 +2,11 @@ package com.bitbybit.game;
 
 import com.bitbybit.model.Player;
 import com.bitbybit.model.Question;
-import com.bitbybit.model.QuestionBoard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.util.Arrays;
 import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
