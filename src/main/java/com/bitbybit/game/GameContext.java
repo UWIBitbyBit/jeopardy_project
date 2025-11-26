@@ -75,4 +75,8 @@ public class GameContext extends ObservableGame {
     public ReportGenerator getReportGenerator() {
         return reportGenerator;
     }
+
+    public void run() {
+        state.executeState(this);
+    }
 }

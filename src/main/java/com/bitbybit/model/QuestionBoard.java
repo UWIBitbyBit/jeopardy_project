@@ -1,4 +1,5 @@
 package com.bitbybit.model;
+
 import java.util.*;
 
 public class QuestionBoard {
@@ -8,14 +9,16 @@ public class QuestionBoard {
         this.questions = new ArrayList<>(questions);
     }
 
-    public Set<String> getCategories() {
-        Set<String> categories = new HashSet<>();
+    public List<String> getCategories() {
+        Set<String> categoriesSet = new HashSet<>();
         for (Question q : questions) {
             if (q != null) {
-                categories.add(q.getCategory());
+                categoriesSet.add(q.getCategory());
             }
         }
-        return categories;
+        List<String> categoriesList = new ArrayList<>(categoriesSet);
+        Collections.sort(categoriesList);
+        return categoriesList;
     }
 
     public List<Integer> getAvailableValues(String category) {
@@ -43,18 +46,29 @@ public class QuestionBoard {
         return null;
     }
 
-    public void markAnswered(Question question) {
+    public void markQuestionAsAnswered(String category, int value) {
+        Question question = getQuestion(category, value);
         if (question != null) {
             question.markAnswered(true);
         }
     }
 
-    public boolean allQuestionsAnswered() {
+    public boolean isBoardEmpty() {
         for (Question q : questions) {
             if (q != null && !q.isAnswered()) {
                 return false;
             }
         }
         return true;
+    }
+
+    public List<Question> getAvailableQuestions(String category) {
+        List<Question> availableQuestions = new ArrayList<>();
+        for (Question q : questions) {
+            if (q != null && q.getCategory().equals(category) && !q.isAnswered()) {
+                availableQuestions.add(q);
+            }
+        }
+        return availableQuestions;
     }
 }

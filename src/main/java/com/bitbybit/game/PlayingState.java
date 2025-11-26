@@ -53,7 +53,7 @@ public class PlayingState implements GameState {
         }
 
         // Check if game should end
-        if (!gameActive || board.allQuestionsAnswered()) {
+        if (!gameActive || board.isBoardEmpty()) {
             System.out.println("\nGame over!");
             displayFinalScores();
             changeState(ctx);
@@ -110,12 +110,13 @@ public class PlayingState implements GameState {
         } else {
             pointsEarned = -value; // Deduct points for incorrect answers
         }
-        
+
         int runningScore = currentPlayer.getScore() + pointsEarned; // Calculate running score before adding
         // Update score and mark question as answered
         currentPlayer.addScore(pointsEarned);
-        board.markAnswered(question);
-        context.notifyObservers(new QuestionAnsweredEvent(currentPlayer, question, correct, playerAnswer, pointsEarned, runningScore));
+        board.markQuestionAsAnswered(question.getCategory(), question.getValue());
+        context.notifyObservers(
+                new QuestionAnsweredEvent(currentPlayer, question, correct, playerAnswer, pointsEarned, runningScore));
 
         // Display result
         if (correct) {
@@ -138,7 +139,7 @@ public class PlayingState implements GameState {
 
     @Override
     public void changeState(GameContext ctx) {
-        if (!gameActive || (board != null && board.allQuestionsAnswered())) {
+        if (!gameActive || (board != null && board.isBoardEmpty())) {
             ctx.setState(new FinishedState());
             context.notifyObservers(new GameFinishedEvent());
         }

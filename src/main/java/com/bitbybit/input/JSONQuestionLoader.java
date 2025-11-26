@@ -70,7 +70,10 @@ public class JSONQuestionLoader implements QuestionLoader {
             }
 
         } catch (IOException e) {
-            // fall through & return whatever we’ve collected
+            // fall through & return whatever we've collected
+        } catch (Exception e) {
+            // Handle JSON parsing errors and other exceptions
+            // Return what we've collected so far
         }
 
         return questions.toArray(new Question[0]);

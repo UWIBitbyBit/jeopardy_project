@@ -23,7 +23,16 @@ public class Player {
         this.score += points;
     }
 
+    public void subtractScore(int points) {
+        this.score = Math.max(0, this.score - points);
+    }
+
     public int getId() {
         return id;
+    }
+
+    @Override
+    public String toString() {
+        return name + " (Score: " + score + ")";
     }
 }
