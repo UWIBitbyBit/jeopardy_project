@@ -11,8 +11,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Implements the {@link QuestionLoader} interface to load Jeopardy questions from a CSV file.
+ * This loader handles CSV files with a specific format: Category, Value, Question, OptionA,
+ * OptionB, OptionC, OptionD, CorrectAnswer. It also supports quoted values within the CSV.
+ */
 public class CSVQuestionLoader implements QuestionLoader {
 
+    /**
+     * Loads questions from the specified CSV file.
+     * The method reads each line, parses it according to CSV rules (including quoted fields),
+     * and constructs {@link Question} objects. It attempts to detect and skip a header row.
+     * Categories can be numeric or string-based; string categories are mapped to sequential numbers.
+     *
+     * @param filepath The path to the CSV file containing the questions.
+     * @return An array of {@link Question} objects loaded from the file. Returns an empty array
+     *         if the file does not exist, is empty, or an {@link IOException} occurs during reading.
+     */
     @Override
     public Question[] loadQuestions(String filepath) {
         Path path = Paths.get(filepath);
@@ -105,7 +120,13 @@ public class CSVQuestionLoader implements QuestionLoader {
         return questions.toArray(new Question[0]);
     }
 
-    // Splits a CSV line into fields, handling quoted commas
+    /**
+     * Splits a CSV line into individual fields, correctly handling commas within
+     * double-quoted strings and escaped double-quotes.
+     *
+     * @param line The CSV line to split.
+     * @return An array of strings, where each string is a field from the CSV line.
+     */
     private String[] splitCsvLine(String line) {
         List<String> fields = new ArrayList<>();
         StringBuilder cur = new StringBuilder();
@@ -132,6 +153,13 @@ public class CSVQuestionLoader implements QuestionLoader {
         return fields.toArray(new String[0]);
     }
 
+    /**
+     * Removes leading/trailing whitespace and outer double quotes from a string.
+     * Also replaces double double-quotes with single double-quotes within the string.
+     *
+     * @param s The string to unquote.
+     * @return The unquoted and trimmed string, or null if the input was null.
+     */
     private String unquote(String s) {
         if (s == null)
             return null;

@@ -3,15 +3,27 @@ package com.bitbybit.game;
 import com.bitbybit.input.*;
 import com.bitbybit.model.Question;
 
+/**
+ * The IntroState class represents the initial state of the Jeopardy game.
+ * In this state, the game welcomes the player and prompts for a question file.
+ * It uses a {@link QuestionLoaderFactory} to load questions based on the file type.
+ */
 public class IntroState implements GameState {
 
     private final QuestionLoaderFactory factory;
 
-    // Constructor injection - factory is provided at runtime
+    /**
+     * Constructs an IntroState with a specified {@link QuestionLoaderFactory}.
+     *
+     * @param factory The factory responsible for creating {@link QuestionLoader} instances.
+     */
     public IntroState(QuestionLoaderFactory factory) {
         this.factory = factory;
     }
 
+    /**
+     * Displays the welcome message and prompts the user to enter a question filename.
+     */
     @Override
     public void displayState() {
         System.out.println("===================================================================================================================");
@@ -20,6 +32,13 @@ public class IntroState implements GameState {
         System.out.println("Please Enter the question filename (CSV, JSON, XML):");
     }
 
+    /**
+     * Executes the logic for the intro state. It reads the filename from user input,
+     * attempts to load questions using the provided factory, and transitions to the
+     * {@link PlayingState} if questions are loaded successfully.
+     *
+     * @param context The {@link GameContext} providing access to game data and utilities.
+     */
     @Override
     public void executeState(GameContext context) {
 
@@ -57,6 +76,11 @@ public class IntroState implements GameState {
         }
     }
 
+    /**
+     * Changes the game state to {@link PlayingState}.
+     *
+     * @param context The {@link GameContext} providing access to game data and utilities.
+     */
     @Override
     public void changeState(GameContext context) {
         context.setState(new PlayingState());

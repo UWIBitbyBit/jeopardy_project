@@ -10,8 +10,23 @@ import java.io.InputStream;
 import java.nio.file.*;
 import java.util.*;
 
+/**
+ * Implements the {@link QuestionLoader} interface to load Jeopardy questions from an XML file.
+ * This loader parses XML files with a specific structure, extracting question details
+ * and converting them into {@link Question} objects.
+ */
 public class XMLQuestionLoader implements QuestionLoader {
 
+    /**
+     * Loads questions from the specified XML file.
+     * The method reads the XML content, parses it using DOM, and constructs
+     * {@link Question} objects. It handles category mapping similar to other loaders,
+     * assigning sequential numbers to string-based categories if necessary.
+     *
+     * @param filepath The path to the XML file containing the questions.
+     * @return An array of {@link Question} objects loaded from the file. Returns an empty array
+     *         if the file does not exist, is empty, or an error occurs during reading or parsing.
+     */
     @Override
     public Question[] loadQuestions(String filepath) {
         Path path = Paths.get(filepath);
@@ -93,6 +108,14 @@ public class XMLQuestionLoader implements QuestionLoader {
         return questions.toArray(new Question[0]);
     }
 
+    /**
+     * Extracts the text content of the first child element with the given tag name
+     * from a parent {@link Element}.
+     *
+     * @param parent The parent XML element.
+     * @param tagName The tag name of the child element to find.
+     * @return The trimmed text content of the child element, or an empty string if not found.
+     */
     private String getText(Element parent, String tagName) {
         NodeList list = parent.getElementsByTagName(tagName);
         if (list.getLength() == 0)
@@ -100,6 +123,13 @@ public class XMLQuestionLoader implements QuestionLoader {
         return list.item(0).getTextContent().trim();
     }
 
+    /**
+     * Retrieves the first child {@link Element} with the specified tag name from a parent {@link Element}.
+     *
+     * @param parent The parent XML element.
+     * @param tagName The tag name of the child element to retrieve.
+     * @return The first matching child {@link Element}, or {@code null} if no such element is found.
+     */
     private Element getChildElement(Element parent, String tagName) {
         NodeList list = parent.getElementsByTagName(tagName);
         if (list.getLength() == 0)

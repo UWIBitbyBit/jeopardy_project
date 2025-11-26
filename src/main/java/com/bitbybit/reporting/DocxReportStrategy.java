@@ -9,10 +9,24 @@ import org.apache.poi.xwpf.usermodel.*;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional; // Added for Optional
+import java.util.Optional;
 
+/**
+ * Implements the {@link ReportStrategy} interface to generate game reports in DOCX format.
+ * This strategy uses Apache POI to create a Word document summarizing game events and player scores.
+ */
 public class DocxReportStrategy implements ReportStrategy {
 
+    /**
+     * Generates a DOCX report summarizing the game events and final player scores.
+     * The report includes a title, a table of final scores, and a turn-by-turn rundown
+     * of all answered questions.
+     *
+     * @param gameEvents A list of {@link GameEvent}s that occurred during the game.
+     * @param players A list of {@link Player}s who participated in the game.
+     * @param outputPath The base path for the output file (e.g., "game_report").
+     *                   The ".docx" extension will be appended automatically.
+     */
     @Override
     public void generateReport(List<GameEvent> gameEvents, List<Player> players, String outputPath) {
         try (XWPFDocument document = new XWPFDocument();
@@ -47,7 +61,7 @@ public class DocxReportStrategy implements ReportStrategy {
             scoreTable.getRow(0).getCell(1).getParagraphs().get(0).getRuns().get(0).setBold(true);
 
 
-            players.stream() // Changed from players.values().stream()
+            players.stream()
                     .sorted((p1, p2) -> Integer.compare(p2.getScore(), p1.getScore()))
                     .forEach(player -> {
                         XWPFTableRow row = scoreTable.createRow();
@@ -72,7 +86,7 @@ public class DocxReportStrategy implements ReportStrategy {
                     Optional<Player> playerOptional = players.stream()
                             .filter(p -> String.valueOf(p.getId()).equals(qaEvent.getPlayerId()))
                             .findFirst();
-                    Player player = playerOptional.orElse(null); // Get player or null if not found
+                    Player player = playerOptional.orElse(null);
                     Question question = qaEvent.getQuestion();
 
                     XWPFParagraph turnPara = document.createParagraph();

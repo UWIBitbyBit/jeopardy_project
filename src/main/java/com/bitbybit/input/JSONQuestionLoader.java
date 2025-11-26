@@ -8,8 +8,23 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.*;
 
+/**
+ * Implements the {@link QuestionLoader} interface to load Jeopardy questions from a JSON file.
+ * This loader uses the Gson library to parse JSON files into a structured format,
+ * and then converts them into {@link Question} objects.
+ */
 public class JSONQuestionLoader implements QuestionLoader {
 
+    /**
+     * Loads questions from the specified JSON file.
+     * The method reads the JSON content, parses it using Gson, and constructs
+     * {@link Question} objects. It handles category mapping similar to the CSV loader,
+     * assigning sequential numbers to string-based categories if necessary.
+     *
+     * @param filepath The path to the JSON file containing the questions.
+     * @return An array of {@link Question} objects loaded from the file. Returns an empty array
+     *         if the file does not exist, is empty, or an error occurs during reading or parsing.
+     */
     @Override
     public Question[] loadQuestions(String filepath) {
         Path path = Paths.get(filepath);
@@ -79,7 +94,10 @@ public class JSONQuestionLoader implements QuestionLoader {
         return questions.toArray(new Question[0]);
     }
 
-    // Helper DTOs that match your JSON structure
+    /**
+     * Helper DTO (Data Transfer Object) class to represent the structure of a question
+     * object within the JSON file.
+     */
     private static class JsonQuestion {
         String Category;
         int Value;
@@ -88,6 +106,10 @@ public class JSONQuestionLoader implements QuestionLoader {
         String CorrectAnswer;
     }
 
+    /**
+     * Helper DTO class to represent the structure of the options for a question
+     * within the JSON file.
+     */
     private static class JsonOptions {
         String A;
         String B;

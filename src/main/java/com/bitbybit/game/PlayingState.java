@@ -7,6 +7,8 @@ import com.bitbybit.logging.PlayerJoinedEvent;
 import com.bitbybit.logging.GameFinishedEvent;
 import com.bitbybit.logging.QuestionAnsweredEvent;
 import com.bitbybit.logging.SelectPlayerCountEvent;
+import com.bitbybit.logging.SelectCategoryEvent;
+import com.bitbybit.logging.SelectQuestionEvent;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,31 +16,46 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * The PlayingState class represents the main gameplay state of the Jeopardy game.
+ * In this state, players take turns selecting categories and values, answering questions,
+ * and accumulating scores. It manages player turns, displays the game board,
+ * and handles transitions to the {@link FinishedState}.
+ */
 public class PlayingState implements GameState {
     private GameContext context;
     private QuestionBoard board;
 
     private final List<Player> players = new ArrayList<>();
     private int currentPlayerIndex = 0;
-    private Scanner scanner; // <-- now taken from GameContext
+    private Scanner scanner;
     private boolean gameActive = true;
 
-
-    
-
+    /**
+     * Displays the current game state, including a "GAME IN PROGRESS" header
+     * and the live scores of all players.
+     */
     @Override
-    public void displayState() {  
+    public void displayState() {
         if (!players.isEmpty()) {
             System.out.println("\n=============================================GAME IN PROGRESS======================================================");
             displayScores();
             System.out.println("===================================================================================================================");
-        }   
+        }
     }
 
+    /**
+     * Executes the main logic for the playing state. This includes initializing the
+     * question board, setting up players (if not already done), managing player turns,
+     * prompting for category and value selection, evaluating answers, updating scores,
+     * and checking for game termination conditions.
+     *
+     * @param ctx The {@link GameContext} providing access to game data and utilities.
+     */
     @Override
     public void executeState(GameContext ctx) {
         this.context = ctx;
-        this.scanner = ctx.getScanner(); // <-- shared scanner
+        this.scanner = ctx.getScanner();
 
         // Initialize board from context questions once
         if (board == null) {
@@ -61,7 +78,6 @@ public class PlayingState implements GameState {
         // Check if game should end
         if (!gameActive || board.isBoardEmpty()) {
             System.out.println("\nGame over!");
-            // displayFinalScores() moved to FinishedState
             changeState(ctx);
             return;
         }
@@ -81,7 +97,7 @@ public class PlayingState implements GameState {
             return;
         }
         // Log category selection
-        context.notifyObservers(new com.bitbybit.logging.SelectCategoryEvent(category, currentPlayer.getName()));
+        context.notifyObservers(new SelectCategoryEvent(category, currentPlayer.getName()));
 
         int value = promptForValue(category);
         if (value == -1) {
@@ -89,7 +105,7 @@ public class PlayingState implements GameState {
             return;
         }
         // Log question selection
-        context.notifyObservers(new com.bitbybit.logging.SelectQuestionEvent(category, value, currentPlayer.getName()));
+        context.notifyObservers(new SelectQuestionEvent(category, value, currentPlayer.getName()));
 
         // Get the question (board handles "already answered")
         Question question = board.getQuestion(category, value);
@@ -117,7 +133,7 @@ public class PlayingState implements GameState {
             pointsEarned = -value; // Deduct points for incorrect answers
         }
 
-        int runningScore = currentPlayer.getScore() + pointsEarned; // Calculate running score before adding
+        int runningScore = currentPlayer.getScore() + pointsEarned;
         // Update score and mark question as answered
         currentPlayer.addScore(pointsEarned);
         board.markQuestionAsAnswered(question.getCategory(), question.getValue());
@@ -143,6 +159,12 @@ public class PlayingState implements GameState {
         }
     }
 
+    /**
+     * Handles state transitions. If the game is no longer active or the board is empty,
+     * it transitions to the {@link FinishedState}.
+     *
+     * @param ctx The {@link GameContext} providing access to game data and utilities.
+     */
     @Override
     public void changeState(GameContext ctx) {
         if (!gameActive || (board != null && board.isBoardEmpty())) {
@@ -151,8 +173,10 @@ public class PlayingState implements GameState {
         }
     }
 
-    // ==== Helper methods ====
-
+    /**
+     * Sets up the players for the game by prompting the user for the number of players
+     * and their names. Players are added to the game context and observers are notified.
+     */
     private void setupPlayers() {
         System.out.println("\nHow many players? (1-4)");
         int numPlayers = 0;
@@ -182,6 +206,9 @@ public class PlayingState implements GameState {
         }
     }
 
+    /**
+     * Displays the current scores of all players.
+     */
     private void displayScores() {
         System.out.println("--- LIVE SCORES ---");
         for (Player player : players) {
@@ -189,13 +216,16 @@ public class PlayingState implements GameState {
         }
     }
 
-
+    /**
+     * Displays the categories and their available question values on the board.
+     */
     private void displayAvailableQuestions() {
         System.out.println("\nAvailable Categories:");
 
         for (String category : board.getCategories()) {
             System.out.print("- " + category + " (Values: ");
 
+            // Pass the original category name to getAvailableValues, which will normalize it internally
             List<Integer> availableValues = board.getAvailableValues(category);
             for (int i = 0; i < availableValues.size(); i++) {
                 System.out.print(availableValues.get(i));
@@ -207,11 +237,29 @@ public class PlayingState implements GameState {
         }
     }
 
+    /**
+     * Prompts the current player to select a category.
+     *
+     * @return The selected category name, or "quit" if the player wants to end the game.
+     */
+    /**
+     * Prompts the current player to select a category.
+     * The input is trimmed, converted to lowercase, and all spaces are removed
+     * to ensure case-insensitive and space-insensitive matching.
+     *
+     * @return The normalized selected category name, or "quit" if the player wants to end the game.
+     */
     private String promptForCategory() {
         System.out.print("\nSelect a category (or type 'quit' to end): ");
-        return scanner.nextLine().trim();
+        return scanner.nextLine().trim().toLowerCase().replaceAll("\\s+", "");
     }
 
+    /**
+     * Prompts the current player to select a question value within a chosen category.
+     *
+     * @param category The selected category.
+     * @return The selected question value, or -1 if the input is invalid.
+     */
     private int promptForValue(String category) {
         System.out.print("Select a value: ");
         try {
@@ -221,6 +269,14 @@ public class PlayingState implements GameState {
         }
     }
 
+    /**
+     * Evaluates the player's answer against the correct answer for a given question.
+     * The comparison is case-insensitive.
+     *
+     * @param question The {@link Question} being answered.
+     * @param playerAnswer The answer provided by the player.
+     * @return {@code true} if the player's answer is correct, {@code false} otherwise.
+     */
     private boolean evaluateAnswer(Question question, String playerAnswer) {
         return question.getCorrectAnswer().equalsIgnoreCase(playerAnswer);
     }

@@ -3,6 +3,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 
+/**
+ * An observer that logs game events to a CSV file.
+ * Each game session is logged to a new CSV file within a 'game_logs' directory.
+ * The log includes details such as Case ID, Player ID, Activity, Timestamp,
+ * Category, Question Value, Answer Given, Result, and Score After Play.
+ */
 public class CSVLoggingObserver implements GameObserver {
     private final String logsDir;
     private int gameCounter = 1;
@@ -10,6 +16,13 @@ public class CSVLoggingObserver implements GameObserver {
     private String currentGameId = "GAME001";
     private String currentFilePath;
 
+    /**
+     * Constructs a new CSVLoggingObserver.
+     * It creates a 'game_logs' directory if it doesn't exist and
+     * initializes the game counter to ensure unique log filenames.
+     *
+     * @param baseDir The base directory where the 'game_logs' folder will be created.
+     */
     public CSVLoggingObserver(String baseDir) {
         // Create logs directory if it doesn't exist
         this.logsDir = baseDir + "/game_logs";
@@ -33,6 +46,14 @@ public class CSVLoggingObserver implements GameObserver {
         this.currentFilePath = String.format("%s/game_%03d.csv", logsDir, gameCounter);
     }
 
+    /**
+     * Called when a game event occurs. This method logs the event details
+     * to the current game's CSV log file. It handles different event types
+     * and formats the log entry accordingly. A header is written if the file
+     * is new or empty.
+     *
+     * @param event The {@link GameEvent} that occurred.
+     */
     @Override
     public void onEvent(GameEvent event) {
         String eventType = event.getType();

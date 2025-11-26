@@ -1,68 +1,71 @@
 package com.bitbybit.game;
 
 import com.bitbybit.model.Player;
+
 import com.bitbybit.reporting.ReportGenerator;
-import com.bitbybit.reporting.TextReportStrategy;
-import com.bitbybit.reporting.PdfReportStrategy;
-import com.bitbybit.reporting.DocxReportStrategy;
+import com.bitbybit.reporting.ReportStrategy;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-
+/**
+ * Represents the finished state of the Jeopardy game.
+ * In this state, the game displays final scores, announces the winner,
+ * and offers the option to generate a game report.
+ */
 public class FinishedState implements GameState {
 
+    /**
+     * Displays a message indicating that the game has finished.
+     */
     @Override
     public void displayState() {
         System.out.println("\n==================================== GAME FINISHED =======================================");
     }
 
+    /**
+     * Executes the actions for the finished state, including displaying final scores,
+     * announcing the winner, and generating a game report if a {@link ReportStrategy}
+     * has been set in the {@link ReportGenerator} within the {@link GameContext}.
+     * The report format selection is handled externally.
+     *
+     * @param ctx The {@link GameContext} providing access to game data and utilities.
+     */
     @Override
     public void executeState(GameContext ctx) {
         System.out.println("Thank you for playing!");
 
         displayFinalScores(ctx.getPlayers()); // Call to display final scores and winner
 
-        // Generate report
         ReportGenerator generator = ctx.getReportGenerator();
+        ReportStrategy currentStrategy = generator.getStrategy();
 
-        System.out.println("\nDo you want to generate a game report? (yes/no)");
-        String response = ctx.getScanner().nextLine().trim().toLowerCase();
-
-        if ("yes".equals(response)) {
-            System.out.println("Choose report format (text, pdf, docx):");
-            String format = ctx.getScanner().nextLine().trim().toLowerCase();
+        if (currentStrategy != null) {
             String outputPath = "game_report_" + System.currentTimeMillis(); // Unique filename
-
-            switch (format) {
-                case "text":
-                    generator.setStrategy(new TextReportStrategy());
-                    break;
-                case "pdf":
-                    generator.setStrategy(new PdfReportStrategy());
-                    break;
-                case "docx":
-                    generator.setStrategy(new DocxReportStrategy());
-                    break;
-                default:
-                    System.out.println("Invalid format. Generating text report by default.");
-                    generator.setStrategy(new TextReportStrategy());
-                    break;
-            }
             generator.generateReport(ctx.getGameEvents(), ctx.getPlayers(), outputPath);
-            System.out.println("Report generated successfully at: " + outputPath + "." + format);
+            System.out.println("Report generated successfully at: " + outputPath + "." + currentStrategy.getClass().getSimpleName().replace("ReportStrategy", "").toLowerCase());
         }
-       
     }
 
+    /**
+     * Handles state transitions. In the finished state, there are no further transitions.
+     *
+     * @param ctx The {@link GameContext} providing access to game data and utilities.
+     */
     @Override
     public void changeState(GameContext ctx) {
         // no further state transition
     }
 
+    /**
+     * Displays the final scores of all players and announces the winner.
+     * Players are sorted by score in descending order.
+     *
+     * @param players A list of {@link Player} objects participating in the game.
+     */
     private void displayFinalScores(List<Player> players) {
-        System.out.println("\n======================================== FINAL SCORES ===========================================");
+        System.out.println("\n=================================== FINAL SCORES ===========================================");
 
         // Sort players by score (highest first)
         List<Player> sortedPlayers = new ArrayList<>(players);
@@ -76,6 +79,6 @@ public class FinishedState implements GameState {
         // Announce winner
         if (!sortedPlayers.isEmpty()) {
             System.out.println("\nWinner: " + sortedPlayers.get(0).getName() + "!");
-}
-}
+        }
+    }
 }

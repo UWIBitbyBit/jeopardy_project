@@ -1,0 +1,81 @@
+-J-Duser.language=
+-J-Duser.country=
+@options
+@packages
+--no-fonts
+-classpath
+'C:/Users/Brandon/.m2/repository/com/google/code/gson/gson/2.11.0/gson-2.11.0.jar;C:/Users/Brandon/.m2/repository/com/google/errorprone/error_prone_annotations/2.27.0/error_prone_annotations-2.27.0.jar;C:/Users/Brandon/.m2/repository/com/itextpdf/itext7-core/7.2.5/itext7-core-7.2.5.pom;C:/Users/Brandon/.m2/repository/com/itextpdf/barcodes/7.2.5/barcodes-7.2.5.jar;C:/Users/Brandon/.m2/repository/com/itextpdf/font-asian/7.2.5/font-asian-7.2.5.jar;C:/Users/Brandon/.m2/repository/com/itextpdf/forms/7.2.5/forms-7.2.5.jar;C:/Users/Brandon/.m2/repository/com/itextpdf/hyph/7.2.5/hyph-7.2.5.jar;C:/Users/Brandon/.m2/repository/com/itextpdf/io/7.2.5/io-7.2.5.jar;C:/Users/Brandon/.m2/repository/com/itextpdf/commons/7.2.5/commons-7.2.5.jar;C:/Users/Brandon/.m2/repository/com/itextpdf/kernel/7.2.5/kernel-7.2.5.jar;C:/Users/Brandon/.m2/repository/org/bouncycastle/bcpkix-jdk15on/1.70/bcpkix-jdk15on-1.70.jar;C:/Users/Brandon/.m2/repository/org/bouncycastle/bcutil-jdk15on/1.70/bcutil-jdk15on-1.70.jar;C:/Users/Brandon/.m2/repository/org/bouncycastle/bcprov-jdk15on/1.70/bcprov-jdk15on-1.70.jar;C:/Users/Brandon/.m2/repository/com/itextpdf/layout/7.2.5/layout-7.2.5.jar;C:/Users/Brandon/.m2/repository/com/itextpdf/pdfa/7.2.5/pdfa-7.2.5.jar;C:/Users/Brandon/.m2/repository/com/itextpdf/sign/7.2.5/sign-7.2.5.jar;C:/Users/Brandon/.m2/repository/com/itextpdf/styled-xml-parser/7.2.5/styled-xml-parser-7.2.5.jar;C:/Users/Brandon/.m2/repository/com/itextpdf/svg/7.2.5/svg-7.2.5.jar;C:/Users/Brandon/.m2/repository/org/apache/poi/poi-ooxml/5.2.3/poi-ooxml-5.2.3.jar;C:/Users/Brandon/.m2/repository/org/apache/poi/poi/5.2.3/poi-5.2.3.jar;C:/Users/Brandon/.m2/repository/commons-codec/commons-codec/1.15/commons-codec-1.15.jar;C:/Users/Brandon/.m2/repository/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar;C:/Users/Brandon/.m2/repository/com/zaxxer/SparseBitSet/1.2/SparseBitSet-1.2.jar;C:/Users/Brandon/.m2/repository/org/apache/poi/poi-ooxml-lite/5.2.3/poi-ooxml-lite-5.2.3.jar;C:/Users/Brandon/.m2/repository/org/apache/xmlbeans/xmlbeans/5.1.1/xmlbeans-5.1.1.jar;C:/Users/Brandon/.m2/repository/org/apache/commons/commons-compress/1.21/commons-compress-1.21.jar;C:/Users/Brandon/.m2/repository/commons-io/commons-io/2.11.0/commons-io-2.11.0.jar;C:/Users/Brandon/.m2/repository/com/github/virtuald/curvesapi/1.07/curvesapi-1.07.jar;C:/Users/Brandon/.m2/repository/org/apache/logging/log4j/log4j-api/2.18.0/log4j-api-2.18.0.jar;C:/Users/Brandon/.m2/repository/org/apache/commons/commons-collections4/4.4/commons-collections4-4.4.jar;C:/Users/Brandon/.m2/repository/org/slf4j/slf4j-api/2.0.7/slf4j-api-2.0.7.jar'
+-encoding
+'UTF-8'
+-protected
+-source
+'17'
+-sourcepath
+'D:/Users/Brandon/Documents/ProjAttempt1/jeopardy_project/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2025. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'D:/Users/Brandon/Documents/ProjAttempt1/jeopardy_project/target/reports/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'jepardy_project 1.0-SNAPSHOT API'
+-use
+-version
+-windowtitle
+'jepardy_project 1.0-SNAPSHOT API'
+com.bitbybit.game
+com.bitbybit.input
+com.bitbybit.logging
+com.bitbybit
+com.bitbybit.model
+com.bitbybit.reporting
+C:\Users\Brandon\.m2\repository\com\google\code\gson\gson\2.11.0\gson-2.11.0.jar = 1764002911135
+C:\Users\Brandon\.m2\repository\com\google\errorprone\error_prone_annotations\2.27.0\error_prone_annotations-2.27.0.jar = 1764002911363
+C:\Users\Brandon\.m2\repository\com\itextpdf\itext7-core\7.2.5\itext7-core-7.2.5.pom = 1764106549185
+C:\Users\Brandon\.m2\repository\com\itextpdf\barcodes\7.2.5\barcodes-7.2.5.jar = 1764106550092
+C:\Users\Brandon\.m2\repository\com\itextpdf\font-asian\7.2.5\font-asian-7.2.5.jar = 1764106550889
+C:\Users\Brandon\.m2\repository\com\itextpdf\forms\7.2.5\forms-7.2.5.jar = 1764106551042
+C:\Users\Brandon\.m2\repository\com\itextpdf\hyph\7.2.5\hyph-7.2.5.jar = 1764106550621
+C:\Users\Brandon\.m2\repository\com\itextpdf\io\7.2.5\io-7.2.5.jar = 1764106550229
+C:\Users\Brandon\.m2\repository\com\itextpdf\commons\7.2.5\commons-7.2.5.jar = 1764106550142
+C:\Users\Brandon\.m2\repository\com\itextpdf\kernel\7.2.5\kernel-7.2.5.jar = 1764106550342
+C:\Users\Brandon\.m2\repository\org\bouncycastle\bcpkix-jdk15on\1.70\bcpkix-jdk15on-1.70.jar = 1764106550578
+C:\Users\Brandon\.m2\repository\org\bouncycastle\bcutil-jdk15on\1.70\bcutil-jdk15on-1.70.jar = 1764106550583
+C:\Users\Brandon\.m2\repository\org\bouncycastle\bcprov-jdk15on\1.70\bcprov-jdk15on-1.70.jar = 1764106551415
+C:\Users\Brandon\.m2\repository\com\itextpdf\layout\7.2.5\layout-7.2.5.jar = 1764106550822
+C:\Users\Brandon\.m2\repository\com\itextpdf\pdfa\7.2.5\pdfa-7.2.5.jar = 1764106550861
+C:\Users\Brandon\.m2\repository\com\itextpdf\sign\7.2.5\sign-7.2.5.jar = 1764106551071
+C:\Users\Brandon\.m2\repository\com\itextpdf\styled-xml-parser\7.2.5\styled-xml-parser-7.2.5.jar = 1764106551616
+C:\Users\Brandon\.m2\repository\com\itextpdf\svg\7.2.5\svg-7.2.5.jar = 1764106551291
+C:\Users\Brandon\.m2\repository\org\apache\poi\poi-ooxml\5.2.3\poi-ooxml-5.2.3.jar = 1764100599927
+C:\Users\Brandon\.m2\repository\org\apache\poi\poi\5.2.3\poi-5.2.3.jar = 1764100601104
+C:\Users\Brandon\.m2\repository\commons-codec\commons-codec\1.15\commons-codec-1.15.jar = 1764100599936
+C:\Users\Brandon\.m2\repository\org\apache\commons\commons-math3\3.6.1\commons-math3-3.6.1.jar = 1764100600911
+C:\Users\Brandon\.m2\repository\com\zaxxer\SparseBitSet\1.2\SparseBitSet-1.2.jar = 1764100600018
+C:\Users\Brandon\.m2\repository\org\apache\poi\poi-ooxml-lite\5.2.3\poi-ooxml-lite-5.2.3.jar = 1764100601363
+C:\Users\Brandon\.m2\repository\org\apache\xmlbeans\xmlbeans\5.1.1\xmlbeans-5.1.1.jar = 1764100601082
+C:\Users\Brandon\.m2\repository\org\apache\commons\commons-compress\1.21\commons-compress-1.21.jar = 1764100600269
+C:\Users\Brandon\.m2\repository\commons-io\commons-io\2.11.0\commons-io-2.11.0.jar = 1762477181379
+C:\Users\Brandon\.m2\repository\com\github\virtuald\curvesapi\1.07\curvesapi-1.07.jar = 1764100600355
+C:\Users\Brandon\.m2\repository\org\apache\logging\log4j\log4j-api\2.18.0\log4j-api-2.18.0.jar = 1764100600495
+C:\Users\Brandon\.m2\repository\org\apache\commons\commons-collections4\4.4\commons-collections4-4.4.jar = 1764100600795
+C:\Users\Brandon\.m2\repository\org\slf4j\slf4j-api\2.0.7\slf4j-api-2.0.7.jar = 1764108219779
+D:\Users\Brandon\Documents\ProjAttempt1\jeopardy_project\src\main\java = 1764106995113
+D:\Users\Brandon\Documents\ProjAttempt1\jeopardy_project\target\reports\apidocs\allclasses-index.html = 1764180695327
+D:\Users\Brandon\Documents\ProjAttempt1\jeopardy_project\target\reports\apidocs\allpackages-index.html = 1764180695329
+D:\Users\Brandon\Documents\ProjAttempt1\jeopardy_project\target\reports\apidocs\element-list = 1764180695003
+D:\Users\Brandon\Documents\ProjAttempt1\jeopardy_project\target\reports\apidocs\help-doc.html = 1764180695359
+D:\Users\Brandon\Documents\ProjAttempt1\jeopardy_project\target\reports\apidocs\index-all.html = 1764180695352
+D:\Users\Brandon\Documents\ProjAttempt1\jeopardy_project\target\reports\apidocs\index.html = 1764180695309
+D:\Users\Brandon\Documents\ProjAttempt1\jeopardy_project\target\reports\apidocs\member-search-index.js = 1764180695333
+D:\Users\Brandon\Documents\ProjAttempt1\jeopardy_project\target\reports\apidocs\module-search-index.js = 1764180695330
+D:\Users\Brandon\Documents\ProjAttempt1\jeopardy_project\target\reports\apidocs\overview-summary.html = 1764180695356
+D:\Users\Brandon\Documents\ProjAttempt1\jeopardy_project\target\reports\apidocs\overview-tree.html = 1764180695303
+D:\Users\Brandon\Documents\ProjAttempt1\jeopardy_project\target\reports\apidocs\package-search-index.js = 1764180695331
+D:\Users\Brandon\Documents\ProjAttempt1\jeopardy_project\target\reports\apidocs\search.html = 1764180695354
+D:\Users\Brandon\Documents\ProjAttempt1\jeopardy_project\target\reports\apidocs\tag-search-index.js = 1764180695334
+D:\Users\Brandon\Documents\ProjAttempt1\jeopardy_project\target\reports\apidocs\type-search-index.js = 1764180695332

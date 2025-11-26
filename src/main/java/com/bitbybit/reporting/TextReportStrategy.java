@@ -10,8 +10,22 @@ import java.io.PrintWriter;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Implements the {@link ReportStrategy} interface to generate game reports in plain text format.
+ * This strategy writes a summary of game events and final player scores to a text file.
+ */
 public class TextReportStrategy implements ReportStrategy {
 
+    /**
+     * Generates a plain text report summarizing the game events and final player scores.
+     * The report includes a title, a list of final scores, and a turn-by-turn rundown
+     * of all answered questions.
+     *
+     * @param gameEvents A list of {@link GameEvent}s that occurred during the game.
+     * @param players A list of {@link Player}s who participated in the game.
+     * @param outputPath The base path for the output file (e.g., "game_report").
+     *                   The ".txt" extension will be appended automatically.
+     */
     @Override
     public void generateReport(List<GameEvent> gameEvents, List<Player> players, String outputPath) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(outputPath + ".txt"))) {
@@ -20,7 +34,7 @@ public class TextReportStrategy implements ReportStrategy {
             writer.println();
 
             writer.println("Final Scores:");
-            players.stream() // Changed from players.values().stream()
+            players.stream()
                     .sorted((p1, p2) -> Integer.compare(p2.getScore(), p1.getScore()))
                     .forEach(player -> writer.printf("- %s: %d points%n", player.getName(), player.getScore()));
             writer.println();
@@ -35,7 +49,7 @@ public class TextReportStrategy implements ReportStrategy {
                     Optional<Player> playerOptional = players.stream()
                             .filter(p -> String.valueOf(p.getId()).equals(qaEvent.getPlayerId()))
                             .findFirst();
-                    Player player = playerOptional.orElse(null); // Get player or null if not found
+                    Player player = playerOptional.orElse(null);
                     Question question = qaEvent.getQuestion();
 
                     writer.printf("Turn %d:%n", turn++);

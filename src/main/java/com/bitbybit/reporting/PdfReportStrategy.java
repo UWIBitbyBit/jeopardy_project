@@ -14,10 +14,24 @@ import com.itextpdf.layout.properties.UnitValue;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional; // Added for Optional
+import java.util.Optional;
 
+/**
+ * Implements the {@link ReportStrategy} interface to generate game reports in PDF format.
+ * This strategy uses the iTextPDF library to create a PDF document summarizing game events and player scores.
+ */
 public class PdfReportStrategy implements ReportStrategy {
 
+    /**
+     * Generates a PDF report summarizing the game events and final player scores.
+     * The report includes a title, a table of final scores, and a turn-by-turn rundown
+     * of all answered questions.
+     *
+     * @param gameEvents A list of {@link GameEvent}s that occurred during the game.
+     * @param players A list of {@link Player}s who participated in the game.
+     * @param outputPath The base path for the output file (e.g., "game_report").
+     *                   The ".pdf" extension will be appended automatically.
+     */
     @Override
     public void generateReport(List<GameEvent> gameEvents, List<Player> players, String outputPath) {
         try (PdfWriter writer = new PdfWriter(outputPath + ".pdf");
@@ -39,7 +53,7 @@ public class PdfReportStrategy implements ReportStrategy {
             scoreTable.addHeaderCell(new Paragraph("Player Name").setBold());
             scoreTable.addHeaderCell(new Paragraph("Score").setBold());
 
-            players.stream() // Changed from players.values().stream()
+            players.stream()
                     .sorted((p1, p2) -> Integer.compare(p2.getScore(), p1.getScore()))
                     .forEach(player -> {
                         scoreTable.addCell(player.getName());
@@ -61,7 +75,7 @@ public class PdfReportStrategy implements ReportStrategy {
                     Optional<Player> playerOptional = players.stream()
                             .filter(p -> String.valueOf(p.getId()).equals(qaEvent.getPlayerId()))
                             .findFirst();
-                    Player player = playerOptional.orElse(null); // Get player or null if not found
+                    Player player = playerOptional.orElse(null);
                     Question question = qaEvent.getQuestion();
 
                     document.add(new Paragraph("Turn " + (turn++))
