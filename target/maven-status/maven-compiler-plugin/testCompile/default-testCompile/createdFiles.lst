@@ -1,0 +1,14 @@
+com\bitbybit\input\CSVQuestionLoaderTest.class
+com\bitbybit\model\QuestionBoardTest.class
+com\bitbybit\game\GameContextTest.class
+com\bitbybit\game\GameFlowIntegrationTest$1.class
+com\bitbybit\game\GameFlowIntegrationTest$2.class
+com\bitbybit\model\QuestionTest.class
+com\bitbybit\game\IntroStateTest$1.class
+com\bitbybit\game\IntroStateTest.class
+com\bitbybit\game\PlayingStateTest.class
+com\bitbybit\model\PlayerTest.class
+com\bitbybit\input\XMLQuestionLoaderTest.class
+com\bitbybit\game\FinishedStateTest.class
+com\bitbybit\input\JSONQuestionLoaderTest.class
+com\bitbybit\game\GameFlowIntegrationTest.class
