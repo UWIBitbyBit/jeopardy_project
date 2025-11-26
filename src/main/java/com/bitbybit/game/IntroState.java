@@ -14,10 +14,10 @@ public class IntroState implements GameState {
 
     @Override
     public void displayState() {
-        System.out.println("======================================");
-        System.out.println("         WELCOME TO JEOPARDY!         ");
-        System.out.println("======================================");
-        System.out.println("Enter the question filename (CSV, JSON, XML):");
+        System.out.println("===================================================================================================================");
+        System.out.println("                                               WELCOME TO JEOPARDY!                                              ");
+        System.out.println("===================================================================================================================");
+        System.out.println("Please Enter the question filename (CSV, JSON, XML):");
     }
 
     @Override
@@ -36,11 +36,11 @@ public class IntroState implements GameState {
             Question[] questions = loader.loadQuestions(filepath);
 
             if (questions == null || questions.length == 0) {
-                System.out.println("❌ No questions found. Try another file.");
+                System.out.println("No questions found. Try another file.");
                 return;
             }
 
-            System.out.println("✓ Loaded " + questions.length + " questions!");
+            System.out.println("\n--->Loaded " + questions.length + " questions!<---");
 
             // Store questions into context
             context.setQuestions(questions);
@@ -52,7 +52,7 @@ public class IntroState implements GameState {
             changeState(context);
 
         } catch (IllegalArgumentException e) {
-            System.out.println("❌ " + e.getMessage());
+            System.out.println("Error: " + e.getMessage());
             System.out.println("Try again.");
         }
     }

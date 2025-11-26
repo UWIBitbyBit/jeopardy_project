@@ -34,9 +34,6 @@ com\bitbybit\model\Question.class
 com\bitbybit\logging\GameEvent.class
 com\bitbybit\logging\LoadFileEvent.class
 com\bitbybit\input\JSONQuestionLoaderFactory.class
-com\bitbybit\input\FileInputTestRunner.class
 com\bitbybit\input\XMLQuestionLoaderFactory.class
 com\bitbybit\logging\SelectPlayerCountEvent.class
-com\bitbybit\game\IntroStateRunner.class
 com\bitbybit\logging\GameObserver.class
-com\bitbybit\game\IntroStateRunner$1.class

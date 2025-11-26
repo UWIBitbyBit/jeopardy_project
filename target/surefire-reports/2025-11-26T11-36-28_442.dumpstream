@@ -1,0 +1,5 @@
+# Created at 2025-11-26T11:36:28.582
+Boot Manifest-JAR contains absolute paths in classpath 'D:\Users\Brandon\Documents\ProjAttempt1\jeopardy_project\target\test-classes'
+Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
+'other' has different root
+

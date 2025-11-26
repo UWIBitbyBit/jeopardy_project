@@ -23,11 +23,16 @@ public class PlayingState implements GameState {
     private Scanner scanner; // <-- now taken from GameContext
     private boolean gameActive = true;
 
+
+    
+
     @Override
-    public void displayState() {
-        System.out.println("\n==== GAME IN PROGRESS ====");
-        displayScores();
-        System.out.println("==========================");
+    public void displayState() {  
+        if (!players.isEmpty()) {
+            System.out.println("\n=============================================GAME IN PROGRESS======================================================");
+            displayScores();
+            System.out.println("===================================================================================================================");
+        }   
     }
 
     @Override
@@ -50,12 +55,13 @@ public class PlayingState implements GameState {
         // First time setup - initialize players
         if (players.isEmpty()) {
             setupPlayers();
+            displayState();
         }
 
         // Check if game should end
         if (!gameActive || board.isBoardEmpty()) {
             System.out.println("\nGame over!");
-            displayFinalScores();
+            // displayFinalScores() moved to FinishedState
             changeState(ctx);
             return;
         }
@@ -177,29 +183,12 @@ public class PlayingState implements GameState {
     }
 
     private void displayScores() {
-        System.out.println("\n--- SCORES ---");
+        System.out.println("--- LIVE SCORES ---");
         for (Player player : players) {
             System.out.println(player.getName() + ": " + player.getScore());
         }
     }
 
-    private void displayFinalScores() {
-        System.out.println("\n=== FINAL SCORES ===");
-
-        // Sort players by score (highest first)
-        List<Player> sortedPlayers = new ArrayList<>(players);
-        Collections.sort(sortedPlayers, (p1, p2) -> Integer.compare(p2.getScore(), p1.getScore()));
-
-        for (int i = 0; i < sortedPlayers.size(); i++) {
-            Player player = sortedPlayers.get(i);
-            System.out.println((i + 1) + ". " + player.getName() + ": " + player.getScore());
-        }
-
-        // Announce winner
-        if (!sortedPlayers.isEmpty()) {
-            System.out.println("\nWinner: " + sortedPlayers.get(0).getName() + "!");
-        }
-    }
 
     private void displayAvailableQuestions() {
         System.out.println("\nAvailable Categories:");
